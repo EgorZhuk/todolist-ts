@@ -1,4 +1,6 @@
 import React, {ChangeEvent, FC, KeyboardEvent, useState} from 'react';
+import {Button, ButtonGroup, TextField} from '@mui/material';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 type AddItemFormType = {
   addItem: (title: string)=>void
@@ -31,14 +33,29 @@ export const AddItemForm: FC<AddItemFormType> = (props) => {
 
   return (
     <div>
-      <input
+
+      <TextField
+        label={'Enter Title'}
+        size={'small'}
+        variant={'outlined'}
         value={title}
+        error={error}
+        helperText={error && 'Please, enter item title'}
         onChange={onChangeSetLocalTitleHandler}
         onKeyDown={onKeyDownAddItemToTodoListHandler}
-        className={errorInputClasses}
       />
-      <button onClick={onClickAddItemToTodoListHandler}>+</button>
-      {errorMessage}
+      <Button
+        size={'small'}
+        variant={'contained'}
+        color={'primary'}
+        disableElevation
+        onClick={onClickAddItemToTodoListHandler}
+        endIcon={
+          <AddCircleOutlineIcon/>
+        }
+      >
+        ADD
+      </Button>
     </div>
   );
 };

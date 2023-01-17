@@ -3,6 +3,8 @@ import './App.css';
 import TodoList, {TaskType} from "./TodoList";
 import {v1} from "uuid";
 import {AddItemForm} from './AddItemForm';
+import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from '@mui/material';
+import {Menu} from '@mui/icons-material';
 
 // Create
 // Read (pagination, filtration, sorting)
@@ -73,8 +75,6 @@ function App() {
     setTasks({...tasks, [todoListId]:tasks[todoListId].map(t=>t.id===taskId?{...t, title: title}: t)})
   }
 
-
-
   const changeTaskStatus = (taskId: string, isDone: boolean, todoListId: string) => {
         setTasks({...tasks, [todoListId]:tasks[todoListId].map(t=>t.id===taskId?{...t, isDone: isDone}: t)})
   }
@@ -114,6 +114,10 @@ function App() {
   const todoListsItems = todoLists.map(tl=>{
     const filteredTasksForRender: Array<TaskType> = getFilteredTasksForRender(tasks[tl.id], tl.filter)
       return (
+        <Grid item>
+        <Paper elevation={3}
+               variant={'outlined'}
+               sx={{p:'10px'}}>
         <TodoList
           key={tl.id}
           todoListId={tl.id}
@@ -128,13 +132,46 @@ function App() {
           changeTaskTitle={changeTaskTitle}
           changeTodoListTitle={changeTodoListTitle}
         />
+        </Paper>
+        </Grid>
       )
   })
 
     return (
         <div className="App">
-          <AddItemForm addItem={addTodoList}/>
-          {todoListsItems}
+          <AppBar position="static">
+            <Toolbar>
+              <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                sx={{mr: 2}}
+              >
+                <Menu/>
+              </IconButton>
+              <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
+                TodoLists
+              </Typography>
+              <Button color="inherit">Login</Button>
+            </Toolbar>
+          </AppBar>
+          <Container
+            fixed
+          >
+            <Grid
+              sx={{p: '10px 0px'}}
+              container>
+              <AddItemForm addItem={addTodoList}/>
+            </Grid>
+            <Grid
+              container
+              spacing={5}>
+                {todoListsItems}
+            </Grid>
+
+          </Container>
+
         </div>
     );
 }

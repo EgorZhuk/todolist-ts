@@ -2,6 +2,8 @@ import React, {ChangeEvent} from 'react';
 import {FilterValuesType} from "./App";
 import {AddItemForm} from './AddItemForm';
 import {EditableSpan} from './EditableSpan';
+import {Button, ButtonGroup, Checkbox, IconButton} from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 // title - заголовок
 // tasks - список задач
 
@@ -39,17 +41,24 @@ const TodoList = (props: TodoListPropsType) => {
         const isDoneClasses = task.isDone ? "isDone" : "notIsDone"
             return (
                 <li key={task.id}>
-                    <input
-                        type="checkbox"
-                        checked={task.isDone}
-                        onChange={onChangeSetTaskStatus}
-                    />
+                  <Checkbox
+                    size={'small'}
+                    checked={task.isDone}
+                    onChange={onChangeSetTaskStatus}
+                  />
                     <EditableSpan
                       classes={isDoneClasses}
                       title={task.title}
                       changeTitle={onChangeSetTaskTitle}
                     />
-                    <button onClick={onClickRemoveTaskHandler}>x</button>
+                  <IconButton
+                    size={'small'}
+                    onClick={onClickRemoveTaskHandler}>
+                    <DeleteIcon
+                      color={'primary'}
+                    />
+                  </IconButton>
+
                 </li>
             )
         })
@@ -72,7 +81,13 @@ const TodoList = (props: TodoListPropsType) => {
                 classes={''}
                 changeTitle={changeTodoListTitle}
               />
-              <button onClick={onClickRemoveTodoListHandler}>X</button>
+              <IconButton
+                size={'small'}
+                onClick={onClickRemoveTodoListHandler}>
+                <DeleteIcon
+                  color={'primary'}
+                />
+              </IconButton>
             </h3>
             <AddItemForm addItem={addTask}/>
 
@@ -80,15 +95,25 @@ const TodoList = (props: TodoListPropsType) => {
                 {tasksItems}
             </ul>
             <div>
-                <button
-                    className={props.filter === "all"? "activeFilter" : undefined}
-                    onClick={getOnClickSetFilterHandler("all")}>All</button>
-                <button
-                    className={props.filter === "active"? "activeFilter" : undefined}
-                    onClick={getOnClickSetFilterHandler("active")}>Active</button>
-                <button
-                    className={props.filter === "completed"? "activeFilter" : undefined}
-                    onClick={getOnClickSetFilterHandler("completed")}>Completed</button>
+              <ButtonGroup
+                size={'small'}
+                disableElevation
+                variant='contained'
+                fullWidth
+              >
+
+                <Button
+                  sx={{mr:'4px'}}//styles
+                  color={props.filter === "all"? "secondary" : 'primary'}
+                  onClick={getOnClickSetFilterHandler("all")}>All</Button>
+                <Button
+                  sx={{mr:'4px'}}
+                  color={props.filter === "active"? "secondary" : 'primary'}
+                  onClick={getOnClickSetFilterHandler("active")}>Active</Button>
+                <Button
+                  color={props.filter === "completed"? "secondary" : 'primary'}
+                  onClick={getOnClickSetFilterHandler("completed")}>Completed</Button>
+              </ButtonGroup>
             </div>
         </div>
     );
