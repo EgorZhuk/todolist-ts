@@ -16,7 +16,7 @@ import {Menu} from '@mui/icons-material';
 
 export type FilterValuesType = "all"|"active"|"completed"
 
-type TodoListType ={
+export type TodoListType ={
   id: string
   title: string
   filter: FilterValuesType
@@ -50,9 +50,25 @@ function App() {
 
   const [filter, setFilter] = useState<FilterValuesType>("all")
 
+  //tasks
+  const addTask = (title: string, todoListId: string) => {
+    const newTask: TaskType = {
+      id: v1(),
+      title: title,
+      isDone: false
+    }
+    setTasks({...tasks, [todoListId]:[newTask, ...tasks[todoListId]]})
+  }
   const removeTask = (taskId: string, todoListId: string) => {
     setTasks({...tasks, [todoListId]:tasks[todoListId].filter(t=>t.id!==taskId)})
   }
+  const changeTaskTitle = (taskId: string, title: string, todoListId: string)=>{
+    setTasks({...tasks, [todoListId]:tasks[todoListId].map(t=>t.id===taskId?{...t, title: title}: t)})
+  }
+  const changeTaskStatus = (taskId: string, isDone: boolean, todoListId: string) => {
+    setTasks({...tasks, [todoListId]:tasks[todoListId].map(t=>t.id===taskId?{...t, isDone: isDone}: t)})
+  }
+
 
   const changeTodoListFilter = (filter: FilterValuesType, todoListId: string) => {
         setTodoList(todoLists.map(t=>t.id===todoListId ? {...t, filter: filter}: t))
@@ -60,23 +76,6 @@ function App() {
 
   const changeTodoListTitle = (title: string, todoListId: string) => {
     setTodoList(todoLists.map(t=>t.id===todoListId ? {...t, title: title}: t))
-  }
-
-  const addTask = (title: string, todoListId: string) => {
-    const newTask: TaskType = {
-            id: v1(),
-            title: title,
-            isDone: false
-    }
-    setTasks({...tasks, [todoListId]:[newTask, ...tasks[todoListId]]})
-  }
-
-  const changeTaskTitle = (taskId: string, title: string, todoListId: string)=>{
-    setTasks({...tasks, [todoListId]:tasks[todoListId].map(t=>t.id===taskId?{...t, title: title}: t)})
-  }
-
-  const changeTaskStatus = (taskId: string, isDone: boolean, todoListId: string) => {
-        setTasks({...tasks, [todoListId]:tasks[todoListId].map(t=>t.id===taskId?{...t, isDone: isDone}: t)})
   }
 
   const removeTodoList = (todoListId: string)=>{
