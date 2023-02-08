@@ -1,6 +1,5 @@
 import {FilterValuesType, TasksStateType, TodolistType} from '../App';
 import {v1} from 'uuid';
-import {findRenderedComponentWithType} from 'react-dom/test-utils';
 import {AddTodolistActionType, RemoveTodolistActionType} from './todolists-reducer';
 
 export type RemoveTaskActionType = ReturnType<typeof RemoveTaskAC>
@@ -16,7 +15,9 @@ type ActionsType = RemoveTaskActionType
   |AddTodolistActionType
 | RemoveTodolistActionType
 
-export const tasksReducer = (state: TasksStateType, action: ActionsType) => {
+const initialState: TasksStateType = {}
+
+export const tasksReducer = (state = initialState, action: ActionsType) => {
     switch (action.type) {
         case 'REMOVE-TASK':
             return {
@@ -53,7 +54,7 @@ export const tasksReducer = (state: TasksStateType, action: ActionsType) => {
 
 
         default:
-            throw new Error("I don't understand this type")
+            return state
     }
 }
 
@@ -72,4 +73,6 @@ export const changeTaskTitleAC = (taskId: string, title: string,todolistId: stri
 export const RemoveTodolistAC = (todolistId: string): RemoveTodolistActionType => {
     return { type: 'REMOVE-TODOLIST', id: todolistId}
 }
-
+export const AddTodolistAC = (title: string): AddTodolistActionType => {
+    return { type: 'ADD-TODOLIST', title: title, todolistId:v1()}
+}
