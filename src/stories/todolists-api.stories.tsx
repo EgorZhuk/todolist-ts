@@ -3,7 +3,7 @@ import axios from 'axios';
 import {todolistAPI} from '../api/todolist-api';
 
 export default {
-  title: 'API'
+  title: 'API/Todolist'
 }
 
 export const GetTodolists = () => {
@@ -11,7 +11,7 @@ export const GetTodolists = () => {
   useEffect(() => {
     todolistAPI.getTodolist()
       .then((res)=>{
-        setState(res)
+        setState(res.data)
       })
 
   }, [])
