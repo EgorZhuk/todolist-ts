@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
+import {ValuesType} from '../features/Login/Login';
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.1/',
@@ -36,7 +37,24 @@ export const todolistsAPI = {
     }
 }
 
+
+export const authAPI = {
+    login(data: ValuesType) {
+        return instance.post<{ data: string }, AxiosResponse<ResponseType<{userId: number}>>, ValuesType>('auth/login', data)
+    },
+    logout() {
+        return instance.delete<ResponseType>('auth/login')
+    },
+    me() {
+        return instance.get<ResponseType<{id: number, email: string, login: string}>>('auth/me')
+    }
+}
+
 // types
+
+export type LoginParamsType = {
+
+}
 export type TodolistType = {
     id: string
     title: string
@@ -49,8 +67,6 @@ export type ResponseType<D = {}> = {
     fieldsErrors: Array<string>
     data: D
 }
-
-
 export enum TaskStatuses {
     New = 0,
     InProgress = 1,
