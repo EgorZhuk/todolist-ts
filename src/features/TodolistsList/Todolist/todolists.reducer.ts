@@ -43,7 +43,9 @@ const slice = createSlice({
 			return action.payload.todolists.map(tl => ({...tl, filter: 'all', entityStatus: 'idle'}))
 			// return action.payload.forEach(t => ({...t, filter: 'active', entityStatus: 'idle'}))
 		},
-
+		clearTodolists: (state, action: PayloadAction<{todolists: TodolistType[] }>) => {
+			return initialState
+		}
 	},
 })
 

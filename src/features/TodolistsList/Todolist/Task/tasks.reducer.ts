@@ -50,6 +50,9 @@ const slice = createSlice({
 					state[tl.id] = []
 				})
 			})
+			.addCase(todolistsActions.clearTodolists, (state, action) =>{
+				return initialState
+			})
 	}
 })
 
