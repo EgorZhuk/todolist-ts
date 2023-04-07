@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect } from 'react'
 import './App.css'
 import { TodolistsList } from 'features/TodolistsList/TodolistsList'
-import { ErrorSnackbar } from 'components/ErrorSnackbar/ErrorSnackbar'
+import { ErrorSnackbar } from 'common/components/ErrorSnackbar/ErrorSnackbar'
 import { useSelector } from 'react-redux'
-import { initializeAppTC} from 'app/app.reducer'
+import { initializeAppTC } from 'app/app.reducer'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Login } from 'features/auth/Login'
 import { logoutTC } from 'features/auth/auth.reducer'
@@ -18,18 +18,19 @@ import {
 	Typography
 } from '@mui/material';
 import { Menu } from '@mui/icons-material'
-import { useAppDispatch } from 'hooks/useAppDispatch';
+import { useAppDispatch } from 'common/hooks/useAppDispatch';
 import { selectIsLoggedIn } from 'features/auth/auth.selectors';
-import {selectIsInitialized, selectStatus} from 'app/app.selectors';
+import { selectAppStatus, selectIsInitialized } from 'app/app.selectors';
 
 type PropsType = {
 	demo?: boolean
 }
 
 function App({demo = false}: PropsType) {
-	const status = useSelector(selectStatus)
+	const status = useSelector(selectAppStatus)
 	const isInitialized = useSelector(selectIsInitialized)
 	const isLoggedIn = useSelector(selectIsLoggedIn)
+
 	const dispatch = useAppDispatch()
 
 	useEffect(() => {
