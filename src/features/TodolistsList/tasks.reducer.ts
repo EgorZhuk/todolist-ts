@@ -3,8 +3,9 @@ import { Dispatch } from 'redux'
 import { AppThunk } from 'app/store'
 import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils'
 import { appActions } from 'app/app.reducer';
-import { todolistsActions } from 'features/TodolistsList/Todolist/todolists.reducer';
+import { todolistsActions } from 'features/TodolistsList/todolists.reducer';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {clearTaskAndTodolists} from 'common/actions/common.actions';
 
 
 const initialState: TasksStateType = {}
@@ -50,8 +51,8 @@ const slice = createSlice({
 					state[tl.id] = []
 				})
 			})
-			.addCase(todolistsActions.clearTodolists, (state, action) =>{
-				return initialState
+			.addCase(clearTaskAndTodolists, ()=>{
+				return {}
 			})
 	}
 })

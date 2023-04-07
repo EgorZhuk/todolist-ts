@@ -3,7 +3,7 @@ import { AddItemForm } from 'components/AddItemForm/AddItemForm'
 import { EditableSpan } from 'components/EditableSpan/EditableSpan'
 import { Task } from './Task/Task'
 import { TaskStatuses, TaskType } from 'api/todolists-api'
-import { FilterValuesType, TodolistDomainType } from 'features/TodolistsList/Todolist/todolists.reducer'
+import { FilterValuesType, TodolistDomainType } from 'features/TodolistsList/todolists.reducer'
 import { Button, IconButton } from '@mui/material'
 import { Delete } from '@mui/icons-material'
 

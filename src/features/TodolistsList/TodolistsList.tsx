@@ -8,8 +8,8 @@ import {
 	FilterValuesType,
 	removeTodolistTC,
 	todolistsActions
-} from 'features/TodolistsList/Todolist/todolists.reducer'
-import { addTaskTC, removeTaskTC, TasksStateType, updateTaskTC } from 'features/TodolistsList/Todolist/Task/tasks.reducer'
+} from 'features/TodolistsList/todolists.reducer'
+import { addTaskTC, removeTaskTC, TasksStateType, updateTaskTC } from 'features/TodolistsList/tasks.reducer'
 import { TaskStatuses } from 'api/todolists-api'
 import { Grid, Paper } from '@mui/material'
 import { AddItemForm } from 'components/AddItemForm/AddItemForm'
@@ -17,8 +17,8 @@ import { Todolist } from './Todolist/Todolist'
 import { Navigate } from 'react-router-dom'
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { selectIsLoggedIn } from 'features/auth/auth.selectors';
-import {selectTodolists} from 'features/TodolistsList/Todolist/todolist.selectors';
-import {selectTasks} from 'features/TodolistsList/Todolist/Task/tasks.selectors';
+import {selectTodolists} from 'features/TodolistsList/todolist.selectors';
+import {selectTasks} from 'features/TodolistsList/tasks.selectors';
 
 type PropsType = {
     demo?: boolean
