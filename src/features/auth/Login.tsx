@@ -3,7 +3,7 @@ import { FormikHelpers, useFormik } from 'formik'
 import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField } from '@mui/material'
-import { useAppDispatch } from 'common/hooks';
+import {useActions, useAppDispatch} from 'common/hooks';
 import { selectIsLoggedIn } from 'features/auth/auth.selectors';
 import { authThunks } from './auth.reducer';
 import { LoginParamsType } from 'features/auth/auth.api';
@@ -20,7 +20,10 @@ export const Login = () => {
 				return {
 					email: 'Email is required'
 				}
-			}
+			} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+				return {
+					email : 'Invalid email address'}
+				} else
 			if (!values.password) {
 				return {
 					password: 'Password is required'
