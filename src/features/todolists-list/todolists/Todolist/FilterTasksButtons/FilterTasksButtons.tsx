@@ -1,5 +1,5 @@
 import {FC} from 'react';
-import {FilterValuesType, TodolistDomainType, todolistsActions} from 'features/todolists-list/todolists.reducer';
+import {FilterValuesType, TodolistDomainType, todolistsActions} from 'features/todolists-list/todolists/todolists.reducer';
 import {useActions} from 'common/hooks';
 import { Button } from '@mui/material'
 import React from 'react';

@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { todolistsThunks } from 'features/todolists-list/todolists.reducer'
+import { todolistsThunks } from 'features/todolists-list/todolists/todolists.reducer'
 import { Grid, Paper } from '@mui/material'
 import { AddItemForm } from 'common/components'
-import { Todolist } from './Todolist/Todolist'
+import { Todolist } from './todolists/Todolist/Todolist'
 import { Navigate } from 'react-router-dom'
 import { useActions } from 'common/hooks';
 import { selectIsLoggedIn } from 'features/auth/auth.selectors';
 import { selectTasks } from 'features/todolists-list/tasks/tasks.selectors';
-import { selectTodolists } from 'features/todolists-list/todolists.selectors';
+import { selectTodolists } from 'features/todolists-list/todolists/todolists.selectors';
+import {selectAppError} from 'app/app.selectors';
 
 
 export const TodolistsList = () => {
@@ -16,8 +17,9 @@ export const TodolistsList = () => {
 	const tasks = useSelector(selectTasks)
 	const isLoggedIn = useSelector(selectIsLoggedIn)
 
+
 	const {
-		addTodolist: addTodolistThunk,
+		addTodolist,
 		fetchTodolists,
 	} = useActions(todolistsThunks)
 
@@ -29,16 +31,17 @@ export const TodolistsList = () => {
 	}, [])
 
 	const addTodolistCallback = (title: string) => {
-		addTodolistThunk(title).unwrap()
+		return addTodolist(title).unwrap()
 	}
 
 	if (!isLoggedIn) {
 		return <Navigate to={'/login'}/>
 	}
 
-	return <>
+	return(
+		<>
 		<Grid container style={{padding: '20px'}}>
-			<AddItemForm addItem={addTodolistCallback} />
+			<AddItemForm addItem={addTodolistCallback}  />
 		</Grid>
 		<Grid container spacing={3}>
 			{
@@ -57,4 +60,5 @@ export const TodolistsList = () => {
 			}
 		</Grid>
 	</>
+	)
 }
