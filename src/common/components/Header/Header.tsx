@@ -8,7 +8,7 @@ import {useActions} from 'common/hooks';
 import {authThunks} from 'features/auth/auth.reducer';
 
 
-const Header = () => {
+export const Header = () => {
   const status = useSelector(selectAppStatus)
   const isLoggedIn = useSelector(selectIsLoggedIn)
   const {logout} = useActions(authThunks)
@@ -30,5 +30,3 @@ const Header = () => {
     </div>
   );
 };
-
-export default Header;

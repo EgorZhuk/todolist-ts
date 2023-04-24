@@ -4,7 +4,7 @@ import {TodolistsList} from 'features/todolists-list/TodolistsList';
 import {Login} from 'features/auth/Login/Login';
 import {Container} from '@mui/material';
 
-const Routing = () => {
+export const Routing = () => {
   return (
     <Container fixed>
       <Routes>
@@ -15,4 +15,3 @@ const Routing = () => {
   );
 };
 
-export default Routing;

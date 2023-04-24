@@ -2,7 +2,15 @@ import { Dispatch } from 'redux';
 import { appActions } from 'app/app.reducer';
 import { ResponseType } from '../types';
 
-
+/**
+ * Обработчик ошибок сервера для приложения.
+ *
+ * @template D - тип данных, содержащихся в ответе сервера
+ * @param {ResponseType<D>} data - ответ сервера, содержащий данные и сообщения об ошибках
+ * @param {Dispatch} dispatch - функция диспетчера из Redux
+ * @param {boolean} [showError=true] - опциональный параметр, указывающий, нужно ли показывать ошибку пользователю
+ * @returns {void}
+ */
 export const handleServerAppError = <D>(data: ResponseType<D>, dispatch: Dispatch, showError: boolean = true
 ) => {
 	if (showError) {

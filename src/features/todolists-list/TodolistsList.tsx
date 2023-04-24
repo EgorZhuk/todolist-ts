@@ -9,7 +9,6 @@ import { useActions } from 'common/hooks';
 import { selectIsLoggedIn } from 'features/auth/auth.selectors';
 import { selectTasks } from 'features/todolists-list/tasks/tasks.selectors';
 import { selectTodolists } from 'features/todolists-list/todolists/todolists.selectors';
-import {selectAppError} from 'app/app.selectors';
 
 
 export const TodolistsList = () => {
