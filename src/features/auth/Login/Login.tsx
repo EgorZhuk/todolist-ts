@@ -3,20 +3,22 @@ import { FormikHelpers, useFormik } from 'formik'
 import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField } from '@mui/material'
-import {useActions, useAppDispatch} from 'common/hooks';
-import { selectIsLoggedIn } from 'features/auth/auth.selectors';
+import {useActions} from 'common/hooks';
+import { selectIsLoggedIn} from 'features/auth/auth.selectors';
 import { authThunks } from 'features/auth/auth.reducer';
 import { LoginParamsType } from 'features/auth/auth.api';
 import { ResponseType } from 'common/types';
 import s from './styles.module.css'
+import {selectGetCaptchaUrl} from 'features/auth/secure/secure.selectors';
 
 export const Login = () => {
 	const isLoggedIn = useSelector(selectIsLoggedIn)
+	const captchaUrl = useSelector(selectGetCaptchaUrl)
 	const {login} = useActions(authThunks)
 
 	const formik = useFormik({
 		validate: (values) => {
-			const errors: Partial<Omit<LoginParamsType, 'captcha'>> = {};
+				const errors: Partial<Omit<LoginParamsType, 'captcha'>> = {};
 			if (!values.email) {
 				errors.email = 'Email is required';
 			} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
@@ -34,9 +36,10 @@ export const Login = () => {
 		initialValues: {
 			email: '',
 			password: '',
-			rememberMe: false
+			rememberMe: false,
+			captcha: captchaUrl
 		},
-		onSubmit: (values, formikHelpers: FormikHelpers<LoginParamsType>) => {
+		onSubmit: (values: LoginParamsType, formikHelpers: FormikHelpers<LoginParamsType>) => {
 			login(values)
 				.unwrap()
 				.catch((reason: ResponseType) => {
@@ -96,6 +99,13 @@ export const Login = () => {
 								checked={formik.values.rememberMe}
 							/>}
 						/>
+						{captchaUrl && <img src={captchaUrl} alt="captcha"/>}
+						{captchaUrl && <TextField
+							type="captcha"
+							label="Captcha"
+							margin="normal"
+							{...formik.getFieldProps('captcha')}
+						/>}
 						<Button type={'submit'}
 								variant={'contained'}
 								disabled={!(formik.isValid && formik.dirty)}

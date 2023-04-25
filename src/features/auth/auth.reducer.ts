@@ -2,17 +2,21 @@ import { createSlice } from '@reduxjs/toolkit';
 import { appActions } from 'app/app.reducer';
 import { authAPI, LoginParamsType } from 'features/auth/auth.api';
 import { clearTasksAndTodolists } from 'common/actions';
-import { createAppAsyncThunk, handleServerNetworkError} from 'common/utils';
+import { createAppAsyncThunk} from 'common/utils';
 import { ResultCode } from 'common/enums';
+import {securityActions, securityThunks} from 'features/auth/secure/secure.reducer';
 
 
 const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>
 ('auth/login', async (arg, thunkAPI) => {
-	const { rejectWithValue} = thunkAPI
+	const {dispatch,rejectWithValue} = thunkAPI
 		const res = await authAPI.login(arg)
 		if (res.data.resultCode === ResultCode.Success) {
 			return {isLoggedIn: true}
 		} else {
+
+				dispatch(securityThunks.getCaptchaUrl())
+
 			const isShowAppError = !res.data.fieldsErrors.length;
 			return rejectWithValue({ data: res.data, showGlobalError: isShowAppError })
 		}
@@ -24,6 +28,7 @@ const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, void>
 		const res = await authAPI.logout()
 		if (res.data.resultCode === ResultCode.Success) {
 			dispatch(clearTasksAndTodolists())
+			dispatch(securityActions.resetCaptcha())
 			return {isLoggedIn: false}
 		} else {
 			return rejectWithValue({data: res.data, showGlobalError: true})
@@ -49,7 +54,7 @@ const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean }, void>
 const slice = createSlice({
 	name: 'auth',
 	initialState: {
-		isLoggedIn: false
+		isLoggedIn: false,
 	},
 	reducers: {},
 	extraReducers: builder => {
@@ -59,10 +64,13 @@ const slice = createSlice({
 			})
 			.addCase(logout.fulfilled, (state, action) => {
 				state.isLoggedIn = action.payload.isLoggedIn
+
 			})
 			.addCase(initializeApp.fulfilled, (state, action) => {
 				state.isLoggedIn = action.payload.isLoggedIn
 			})
+
+
 	}
 })
 
