@@ -21,7 +21,7 @@ export const Header = () => {
             <Menu/>
           </IconButton>
           <Typography variant="h6">
-            News
+            TodoList List
           </Typography>
           {isLoggedIn && <Button color="inherit" onClick={logoutHandler}>Log out</Button>}
         </Toolbar>

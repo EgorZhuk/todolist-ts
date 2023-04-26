@@ -1,6 +1,5 @@
 import {createAppAsyncThunk} from 'common/utils';
 import {createSlice} from '@reduxjs/toolkit';
-import {LoginParamsType} from 'features/auth/auth.api';
 import {secureApi} from 'features/auth/secure/secure.api';
 
 const initialState = {
@@ -8,7 +7,7 @@ const initialState = {
 }
  type SecureInitialStateType = typeof initialState
 
-const getCaptchaUrl = createAppAsyncThunk<any>(
+const getCaptchaUrl = createAppAsyncThunk<SecureInitialStateType>(
   'security/captcha',
   async ()=>{
     const res = await secureApi.getCaptchaUrl()

@@ -7,7 +7,7 @@ import { ResponseType } from '../types';
  *
  * @template D - тип данных, содержащихся в ответе сервера
  * @param {ResponseType<D>} data - ответ сервера, содержащий данные и сообщения об ошибках
- * @param {Dispatch} dispatch - функция диспетчера из Redux
+ * @param {Dispatch} dispatch - Функция dispatch из библиотеки Redux для отправки actions
  * @param {boolean} [showError=true] - опциональный параметр, указывающий, нужно ли показывать ошибку пользователю
  * @returns {void}
  */
