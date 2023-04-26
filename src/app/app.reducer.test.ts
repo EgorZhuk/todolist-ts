@@ -20,3 +20,8 @@ test('correct status should be set', () => {
 	expect(endState.status).toBe('loading');
 })
 
+test('correct isInitialized should be set', ()=>{
+	const endState = appReducer(startState, appActions.setAppInitialized({isInitialized: true}))
+	expect(endState.isInitialized).toBeTruthy()
+})
+

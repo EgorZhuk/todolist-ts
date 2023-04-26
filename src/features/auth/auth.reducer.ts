@@ -10,6 +10,7 @@ import {securityActions, securityThunks} from 'features/auth/secure/secure.reduc
 const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>
 ('auth/login', async (arg, thunkAPI) => {
 	const {dispatch,rejectWithValue} = thunkAPI
+	debugger
 		const res = await authAPI.login(arg)
 		if (res.data.resultCode === ResultCode.Success) {
 			return {isLoggedIn: true}
