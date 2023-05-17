@@ -1,6 +1,5 @@
 import React from 'react';
-import {AppBar, Button, IconButton, LinearProgress, Toolbar, Typography} from '@mui/material';
-import {Menu} from '@mui/icons-material';
+import {AppBar, Button, Container, IconButton, LinearProgress, Toolbar, Typography} from '@mui/material';
 import {useSelector} from 'react-redux';
 import {selectAppStatus} from 'app/app.selectors';
 import {selectIsLoggedIn} from 'features/auth/auth.selectors';
@@ -16,15 +15,15 @@ export const Header = () => {
   return (
     <div>
       <AppBar position="static">
-        <Toolbar>
-          <IconButton edge="start" color="inherit" aria-label="menu">
-            <Menu/>
-          </IconButton>
-          <Typography variant="h6">
-            TodoList List
-          </Typography>
-          {isLoggedIn && <Button color="inherit" onClick={logoutHandler}>Log out</Button>}
-        </Toolbar>
+        <Container fixed>
+          <Toolbar sx={{justifyContent: 'space-between'}}>
+            <Typography  variant="h3">
+              TodoList
+            </Typography>
+            {isLoggedIn && <Button color="inherit" onClick={logoutHandler}>Log out</Button>}
+          </Toolbar>
+        </Container>
+
         {status === 'loading' && <LinearProgress/>}
       </AppBar>
     </div>

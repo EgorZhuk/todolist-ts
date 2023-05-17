@@ -50,7 +50,7 @@ export const AddItemForm: FC<Props> = memo( ({addItem, disabled = false}: Props)
 							 value={title}
 							 onChange={onChangeHandler}
 							 onKeyPress={onKeyPressHandler}
-							 label="Title"
+							 label="Add item"
 							 helperText={error}
 		/>
 		<IconButton color="primary" onClick={addItemHandler} disabled={disabled}>
